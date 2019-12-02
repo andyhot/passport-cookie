@@ -75,6 +75,11 @@ Strategy.prototype.authenticate = function(req) {
     }
   }
 
+  // Support koa
+  if (!token && req.cookies.get) {
+    token = req.cookies.get(this._cookieName);
+  }
+  
   if (!token) {
     return this.fail(401);
   }
